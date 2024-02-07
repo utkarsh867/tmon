@@ -62,7 +62,7 @@ func CreateSystemDModel(pty ssh.Pty) SystemDModel {
 func (m SystemDModel) updateServiceStatus() tea.Cmd {
   return func() tea.Msg {
     for i := 0; i < len(m.services); i++ {
-      srv := m.services[i]
+      srv := &m.services[i]
       cmd := exec.Command("systemctl", "check", srv.command)
       out, err := cmd.CombinedOutput()
       if err != nil {
