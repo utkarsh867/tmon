@@ -52,7 +52,6 @@ func CreateSystemDModel(pty ssh.Pty) SystemDModel {
     items[i] = services[i]
   }
 
-  fmt.Printf("Created items %d", len(items))
   return SystemDModel {
     pty: pty,
     list: list.New(items, list.NewDefaultDelegate(), 0, 0),
@@ -67,10 +66,9 @@ func (m SystemDModel) updateServiceStatus() tea.Cmd {
       cmd := exec.Command("systemctl", "check", srv.command)
       out, err := cmd.CombinedOutput()
       if err != nil {
-        fmt.Println(err.Error())
+        fmt.Printf("Error doing systemctl check %s\t%s\n", srv.command, err.Error())
         srv.status = "error"
       }
-      fmt.Println(string(out))
       srv.status = string(out)
     }
     return ServiceUpdateMsg{}

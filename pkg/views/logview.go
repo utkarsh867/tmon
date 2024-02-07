@@ -87,13 +87,11 @@ func (m LogView) runStreamLog() tea.Cmd {
     logs := exec.Command("dmesg", "-w")
     reader, err := logs.StdoutPipe()
     if err != nil {
-      fmt.Println(err)
       log.Fatal("Error")
     }
 
     err = logs.Start()
     if err != nil {
-      fmt.Println(err)
       log.Fatal("Error")
     }
 
