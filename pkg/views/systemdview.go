@@ -45,6 +45,11 @@ func CreateSystemDModel(pty ssh.Pty) SystemDModel {
       command: "livestream.service",
       status: "unknown",
     },
+    {
+      name: "wireguard",
+      command: "wg-quick@wg0.service",
+      status: "unknown",
+    },
   }
 
   items := make([]list.Item, len(services))
