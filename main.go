@@ -21,14 +21,14 @@ import (
 )
 
 type MainView struct {
-  leftLog tea.Model
+  systemDView tea.Model
   rightLog tea.Model
   pty ssh.Pty
 }
 
 func (m MainView) Init() tea.Cmd {
   return tea.Batch(
-    m.leftLog.Init(),
+    m.systemDView.Init(),
     m.rightLog.Init(),
   )
 }
@@ -47,7 +47,7 @@ func (m MainView) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
       cmd1 tea.Cmd
       cmd2 tea.Cmd
     )
-    m.leftLog, cmd1 = m.leftLog.Update(msg)
+    m.systemDView, cmd1 = m.systemDView.Update(msg)
     m.rightLog, cmd2 = m.rightLog.Update(msg)
     cmds = append(cmds, cmd1, cmd2)
   }
@@ -57,7 +57,7 @@ func (m MainView) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 func (m MainView) View() string {
   return lipgloss.JoinHorizontal(
     lipgloss.Left,
-    m.leftLog.View(),
+    m.systemDView.View(),
     m.rightLog.View(),
   )
 }
@@ -78,7 +78,7 @@ func main() {
 		}
 
     initialModel := MainView{
-      leftLog: views.CreateLogModel(pty),
+      systemDView: views.CreateLogModel(pty),
       rightLog: views.CreateLogModel(pty),
       pty: pty,
     } 

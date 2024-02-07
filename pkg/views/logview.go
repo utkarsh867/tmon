@@ -84,7 +84,7 @@ func (m LogView) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 func (m LogView) runStreamLog() tea.Cmd {
   return func() tea.Msg {
-    logs := exec.Command("log", "stream")
+    logs := exec.Command("dmesg", "-w")
     reader, err := logs.StdoutPipe()
     if err != nil {
       log.Fatal("Error")
