@@ -68,8 +68,10 @@ func (m SystemDModel) updateServiceStatus() tea.Cmd {
       if err != nil {
         fmt.Printf("Error doing systemctl check %s\t%s\n", srv.command, err.Error())
         srv.status = "error"
+      } else {
+        srv.status = string(out)
       }
-      srv.status = string(out)
+      fmt.Printf("Set status of service %s to %s", srv.name, srv.status)
     }
     return ServiceUpdateMsg{}
   }
