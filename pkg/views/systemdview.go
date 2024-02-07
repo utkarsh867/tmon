@@ -96,10 +96,14 @@ func (m SystemDModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
   case tea.WindowSizeMsg:
     h, v := docStyle.GetFrameSize()
     m.list.SetSize(msg.Width/3 - h, msg.Height - v)
+  case ServiceUpdateMsg:
+    for i := 0; i < len(m.services); i++ {
+      cmd = m.list.SetItem(i, m.services[i])
+      cmds = append(cmds, cmd)
+    }
   }
-  
   m.list, cmd = m.list.Update(msg)
-  cmds = append(cmds, cmd)
+  cmds = append(cmds, cmd, m.updateServiceStatus())
   return m, tea.Batch(cmds...)
 }
 
