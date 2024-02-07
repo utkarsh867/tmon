@@ -78,7 +78,7 @@ func main() {
 		}
 
     initialModel := MainView{
-      systemDView: views.CreateLogModel(pty),
+      systemDView: views.CreateSystemDModel(pty),
       rightLog: views.CreateLogModel(pty),
       pty: pty,
     } 
