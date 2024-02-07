@@ -71,7 +71,7 @@ func (m SystemDModel) updateServiceStatus() tea.Cmd {
       } else {
         srv.status = string(out)
       }
-      fmt.Printf("Set status of service %s to %s", srv.name, srv.status)
+      fmt.Printf("Set status of service %s to %s\n", srv.name, srv.status)
     }
     return ServiceUpdateMsg{}
   }
@@ -98,6 +98,7 @@ func (m SystemDModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
     m.list.SetSize(msg.Width/3 - h, msg.Height - v)
   case ServiceUpdateMsg:
     for i := 0; i < len(m.services); i++ {
+      fmt.Printf("Setting list item: %s\n", m.services[i])
       cmd = m.list.SetItem(i, m.services[i])
       cmds = append(cmds, cmd)
     }
